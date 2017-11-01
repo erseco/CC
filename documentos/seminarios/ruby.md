@@ -50,9 +50,9 @@ El lenguaje Ruby lo
 <div class='ejercicios' markdown="1">
 
 Instalar Ruby y usar
-
-    ruby --version
-
+```shellsession
+ruby --version
+``` 
 para comprobar la versión instalada. A la vez, conviene instalar también `irb`, `rubygems` y `rdoc`.
 
 </div>
@@ -89,9 +89,10 @@ En cuanto al intérprete de Ruby que se puede instalar, hay muchas
   tu ordenador puede que tengas una u otra, aunque también te puedes
   instalar [cualquier
     otra](http://en.wikipedia.org/wiki/Ruby_(programming_language)#Implementations).
-
-    #!/usr/bin/ruby
-    puts "Esto es jauja"
+```ruby
+#!/usr/bin/ruby
+puts "Esto es jauja"
+```
 
 La primera línea es la habitual en lenguajes interpretados: le dice
   al intérprete de órdenes de Linux (y al servidor Apache en Windows,
@@ -109,17 +110,18 @@ La primera línea es la habitual en lenguajes interpretados: le dice
 Para ejecutarlo se guarda y se hace lo que se ha dicho antes, no
   voy a repetirlo. Y el resultado será el esperado. También pasará lo
   mismo si lo hacemos desde `irb`:
-
-    [jmerelo@leonard ruby-para-impacientes]$ irb
-    pirb(main):001:0> puts "esto es jauja"
-    esto es jauja
-    => nil
-
+```shellsession
+[jmerelo@leonard ruby-para-impacientes]$ irb
+pirb(main):001:0> puts "esto es jauja"
+esto es jauja
+=> nil
+```
 Pero Ruby es un lenguaje orientado a objetos, o más bien empotrado
   de objetos: todo es un objeto en Ruby. Así que lo anterior (y algo más) podríamos
   escribirlo de la forma siguiente.
-
-    puts "--" << "Esto es jauja".center(20) << "--"
+```ruby
+puts "--" << "Esto es jauja".center(20) << "--"
+```
 
  Lo que consigue este program es escribir una cadena centrada en
  una línea de 20 caracteres y rodeada por dos guiones
@@ -133,16 +135,17 @@ Pero Ruby es un lenguaje orientado a objetos, o más bien empotrado
  podemos aplicarle los métodos correspondientes, tales como
  ese. Pasándole el argumento 20, centra la cadena en un espacio de 20
  caracteres:
-
-    usuario@usuario-desktop:~/code$ ./jauja-center.rb
-    --   Esto es jauja    --  
+```shellsession
+usuario@usuario-desktop:~/code$ ./jauja-center.rb
+--   Esto es jauja    --  
+```
 
 También podíamos haber creado el objeto explícitamente, pero
   hubiera sido mucho más clásico:
-
-    jauja = String::new( "Esto es jauja" )
-    puts "--" << jauja.center(20) << "--"
-
+```ruby
+jauja = String::new( "Esto es jauja" )
+puts "--" << jauja.center(20) << "--"
+```
 En la primera línea vemos un par de cosas: como en otros lenguajes,
 las variables en Ruby no tienen ningún tipo de carácter
 adicional (en realidad se verán más adelante algunos caracteres, que
@@ -167,20 +170,20 @@ lógica; Ruby trabaja bajo el principio de la mínima sorpresa (lo que
 muchas veces provoca sorpresa si uno proviene de otros lenguajes, que nos tienen mal acostumbrados), o más bien
 de la máxima coherencia: una vez aprendida parte del lenguaje, el
 resto es más o menos igual. Por ejemplo, las matrices:
-
-    matriz = ['esto','es',1,'matriz']
-    puts matriz.join << " " << matriz.join("-")
-
+```ruby
+matriz = ['esto','es',1,'matriz']
+puts matriz.join << " " << matriz.join("-")
+```
 Como ocurre en otros lenguajes dinámicos como el Ruby, no hay
 distinción de tipos: una matriz puede contener números enteros,
 cadenas e incluso otras matrices, y desde su creación son objetos de
 pleno derecho, pudiéndosele aplicar métodos como `join` que
 une todos los elementos de la matriz, con o sin algún carácter de por
 medio. Este pequeño programa imprimirá:
-
-    usuario@usuario-desktop:~/ruby-para-impacientes$ code/matriz.rb
-    estoes1matriz esto-es-1-matriz
-
+```shellsession
+usuario@usuario-desktop:~/ruby-para-impacientes$ code/matriz.rb
+estoes1matriz esto-es-1-matriz
+```
 como, imagino, era de esperar. 
 
 No son los únicos tipos de matrices: las matrices asociativas son
@@ -188,12 +191,12 @@ No son los únicos tipos de matrices: las matrices asociativas son
   (en vez de hacerlo en secuencia), sumamente útiles para evitar la
   distribución de la información de una estructura de datos por
   múltiples matrices y su acceso fácil usando una clave
-
-    sonido_de = { :vaca => 'muuu',
-	  :buho => 'uuu',
-	  :caballo => 'iiiii' }
-    puts sonido_de.inspect
-
+```ruby
+sonido_de = { :vaca => 'muuu',
+:buho => 'uuu',
+:caballo => 'iiiii' }
+puts sonido_de.inspect
+```
 
 Que, aparte de introducir las llaves (para claves... ¿lo ves como se
 	  trata de no sorprender?) pone unos dos puntitos delante de
@@ -207,12 +210,12 @@ necesitamos en una variable asociativa,
 	  denominada [Hash](http://ruby-doc.org/core/classes/Hash.html)
 	  en Ruby. Por supuesto, se puede usar una cadena normal y
 	  corriente como clave:
-
-	  precio_de = { "pipas" => 'bajo',
-	  "coche" => 'depende',
-	  "plan E" => 'exagerado' }
-	  puts precio_de.to_s
-
+```ruby
+precio_de = { "pipas" => 'bajo',
+"coche" => 'depende',
+"plan E" => 'exagerado' }
+puts precio_de.to_s
+```
 que al ejecutarse, por usar `to_s` para convertir a una
 	  cadena la matriz asociativa en vez del inspect anterior no
 se ve nada, pero es otra forma de hacer las cosas. `to_s` es también
@@ -234,14 +237,14 @@ de hashes de arrays e imprimirlo.
 
 Como los arrays y hashes son objetos, también se usa normalmente un
 método para recorrerlos, como en el ejemplo siguiente:
+```ruby
+zipi = { :foo => 'bar', 
+  :baz => 'quux'}
 
-    zipi = { :foo => 'bar', 
-      :baz => 'quux'}
-
-    zipi.keys().each do |zape|
-      puts zipi[zape]
-    end
-
+zipi.keys().each do |zape|
+  puts zipi[zape]
+end
+```
 `keys()` recorre las claves del hash y la función `each` ejecuta un
 					       bloque. Cómo funciona
 					       esto exactamente se
@@ -269,13 +272,13 @@ Tratándose de un lenguaje orientado a objetos, habrá que buscar la
   clase para abrir y cerrar ficheros, que se llama en un alarde de
   originalidad `File`.
 
-
-	fh = File::new( ARGV[0] )
-	while (line = fh.gets ) 
-		nombre, apellidos  = line.split(',')
-		puts "* Nombre #{nombre}\n\tapellidos #{apellidos}"
-	end
-
+```ruby
+fh = File::new( ARGV[0] )
+while (line = fh.gets ) 
+  nombre, apellidos  = line.split(',')
+  puts "* Nombre #{nombre}\n\tapellidos #{apellidos}"
+end
+```
 En este caso, tampoco es sorprendente la matriz que se usa para
 acceder a la línea de comandos: `ARGV`, igual que en C (pero en
 mayúsculas) o en Perl (pero sin dólares). Ya puestos, introducimos
@@ -296,23 +299,25 @@ Fijaros también en una cosa curiosa: el `=` de la primera línea
   no tienen ningún símbolo delante, hace falta eso al menos para saber
   que se trata de variables, y no de parte de la cadena. El
   resultado es el esperado:
-
-    $ ruby code/fichero.rb code/nombres.txt
-    * Nombre Ginés
-	apellidos  Ibn Hassan Rodríguez
-    * Nombre Sergei
-	apellidos  Ben Ayoun
-    * Nombre Malika
-	apellidos  Maliki
-    * Nombre Juan
-	apellidos  Gómez Gómez
-
+```shellsession
+  $ ruby code/fichero.rb code/nombres.txt
+  * Nombre Ginés
+apellidos  Ibn Hassan Rodríguez
+  * Nombre Sergei
+apellidos  Ben Ayoun
+  * Nombre Malika
+apellidos  Maliki
+  * Nombre Juan
+apellidos  Gómez Gómez
+```
 al menos sobre el fichero
 
+```
     Ginés, Ibn Hassan Rodríguez
     Sergei, Ben Ayoun
     Malika, Maliki
     Juan, Gómez Gómez</pre>
+```
 
 Para leer de una web se tienen que usar módulos externos, que, como es
 natural, están también organizadas en clases, y clases están
@@ -325,10 +330,10 @@ organizadas jerárquicamente en espacios de
   serviría para leer cosas de la web. Pero no forma parte del núcleo o
   *core*, así que tendremos que importarla explícitamente con
   `require`:
-
-    require 'net/http'
-    Net::HTTP.get_print  'osl.ugr.es', '/'
-
+```ruby
+require 'net/http'
+Net::HTTP.get_print  'osl.ugr.es', '/'
+```
 En `require` cambia un poco la sintaxis: se separan las partes de la
 librería con `/` y se pone todo en minúsculas. `require`
 importa el código, pero no los identificadores; por eso para usar
@@ -344,20 +349,20 @@ sinceramente, me ha sorprendido.
 Juntando todo lo anterior, y añadiendo alguna cosilla más de
   nuestra cosecha, podemos bajarnos una página web y
   meterla en un fichero
+```ruby
+require 'net/http'
 
-	require 'net/http'
-
-	url = ARGV[0]
-	puts "La url es " << url
-	respuesta = Net::HTTP.get  url, '/'
-	fname =  "#{url}.html"
-	if ( File.writable?(fname) ) 
-		salida = File.new fname, "w"	    
-		salida.puts( respuesta )
-	else
-		puts("No puedo escribir en #{fname}")
-	end
-
+url = ARGV[0]
+puts "La url es " << url
+respuesta = Net::HTTP.get  url, '/'
+fname =  "#{url}.html"
+if ( File.writable?(fname) ) 
+  salida = File.new fname, "w"
+  salida.puts( respuesta )
+else
+  puts("No puedo escribir en #{fname}")
+end
+```
 Nuestra cosecha incluye una interrogación y un `if`, que no
   habíamos visto antes. La interrogación se usa en los métodos que
   devuelven un valor lógico, verdadero o falso (valores que tienen un
@@ -383,26 +388,26 @@ Después de las variables uno de los conceptos importantes en Ruby
   son los bloques. Un bloque es una secuencia de código con sus
   propias variables, y en Ruby se denota por
   llaves `{}` o por `do` - `done`. Se usa, por ejemplo, para bucles tales como los siguientes.
-
-	host = ARGV[0]
-	partes = host.split(".")
-	partes.each do |p|
-		puts "* #{p}"
-	end
-
+```ruby
+host = ARGV[0]
+partes = host.split(".")
+partes.each do |p|
+  puts "* #{p}"
+end
+```
 En este mini-programa le pasamos un nombre de servidor en internet
 	(del tipo subdominio.dominio.tld) y nos da cada una de sus partes,
 	que se guardan precisamente en una variable que se llama así. Pero
 	el truco está en la tercera línea: `partes.each` es una función
 	que recibe un bloque como argumento. También lo podríamos expresar
 	de la forma siguiente: 
-	
-	host = ARGV[0]
-	partes = host.split(".")
-	partes.each { |p|
-		puts "* #{p}"
-	}
-
+```ruby	
+host = ARGV[0]
+partes = host.split(".")
+partes.each { |p|
+  puts "* #{p}"
+}
+```
 y sería exactamente lo mismo (salvo la precedencia, pero eso no nos importa ahora). 
 
 Los bloques tienen todos la misma estructura: al principio se
@@ -418,17 +423,17 @@ Lo que ocurre con los bloques en Ruby es que tienen entidad
   tienen asignado un nombre), y de hecho se pueden usar como
   tales; además, como todo en Ruby, son objetos, o sea que podemos
   crearlos y pasarlos por ahí como queramos. 
+```ruby
+prefijos = %w( pre post ante super macro mega)
+prefijadores = Hash.new
+prefijos.each { |p|
+  prefijadores[p] = lambda { |post| return "#{p}#{post}";}
+}
 
-	prefijos = %w( pre post ante super macro mega)
-	prefijadores = Hash.new
-	prefijos.each { |p|
-		prefijadores[p] = lambda { |post| return "#{p}#{post}";}
-	}
-
-	puts prefijadores['macro'].call( 'objetivo' )
-	puts prefijadores['super'].call( 'chanchi' )
-	puts prefijadores['mega'].call( 'chuli' )
-   
+puts prefijadores['macro'].call( 'objetivo' )
+puts prefijadores['super'].call( 'chanchi' )
+puts prefijadores['mega'].call( 'chuli' )
+```  
 En este ejemplo hemos empezado definiendo una matriz de forma
 abreviada: usando `%w` para ahorrarnos comas y comillas, y
 hemos seguido creando un `Hash` (matriz asociativa) donde vamos a
@@ -440,13 +445,13 @@ recibirá cuando se llame, tal como se hace abajo usando `call`
 al método `call` de ese objeto). La
 función `prefijadores['macro']` se comportará de la misma
 forma que si la hubiéramos definido así
+```ruby
+def prefijador( post ) 
+  "macro#{post}";
+end
 
-	def prefijador( post ) 
-		"macro#{post}";
-	end
-
-	puts prefijador('micro');
-
+puts prefijador('micro');
+```
 la única diferencia es que en este caso no hace falta usar `call` para
 llamar a la función: se puede usar directamente el nombre de la
 misma. De camino, vemos como se definen funciones en Ruby: usando
@@ -485,37 +490,37 @@ Aparte de `gem`, hay que instalarse alguna cosa más, porque muchos
   adicionales. En concreto, la versión `-dev` del paquete
   Ruby que tengamos instalado. Por ejemplo, en alguna versión de Ubuntu habría que
   escribir 
-  
-    sudo apt-get install ruby1.8-dev
-
+```shellsession
+sudo apt-get install ruby1.8-dev
+```
 No siempre es necesario, pero si te da un error algún módulo típico,
   posiblemente sea por eso.
 
 Una vez instalado todo eso, no hay más que usarlo. Empezamos por
   buscar algo que queramos instalar:
-
-    jmerelo@sheldon:~/public_html/tutoriales/ruby-para-impacientes$ gem search mysql
-    *** LOCAL GEMS ***
-
+```shellsession
+jmerelo@sheldon:~/public_html/tutoriales/ruby-para-impacientes$ gem search mysql
+*** LOCAL GEMS ***
+```
 Joeves, no devuelve nada. Pero claro, es que busca en la colección
   local de gemas. Habrá que buscar en la remota:
+```shellsession
+jmerelo@sheldon:~/public_html/tutoriales/ruby-para-impacientes$ gem search --remote mysql
 
-	jmerelo@sheldon:~/public_html/tutoriales/ruby-para-impacientes$ gem search --remote mysql
+*** REMOTE GEMS ***
 
-	*** REMOTE GEMS ***
-
-	activerecord-jdbcmysql-adapter (0.9.6)
-	activerecord-mysql-adapter-flags (0.0.3)
-	dbd-mysql (0.4.4)
-	do_mysql (0.10.1)
-	...
-
+activerecord-jdbcmysql-adapter (0.9.6)
+activerecord-mysql-adapter-flags (0.0.3)
+dbd-mysql (0.4.4)
+do_mysql (0.10.1)
+...
+```
 Y así hasta un mogollón de cosas. Tendremos un listado de todas las
   disponibles, y todas las versiones. Vamos a instalarnos la tercera;
   si queremos que esté disponible para todos los usuarios tendremos
   que lanzar la orden con privilegios de administrador:
-
-    jmerelo@sheldon:~/ruby-para-impacientes$ sudo gem install ruby-mysql
+```shellsession
+jmerelo@sheldon:~/ruby-para-impacientes$ sudo gem install ruby-mysql
 Successfully installed ruby-mysql-2.9.2
 1 gem installed
 Installing ri documentation for ruby-mysql-2.9.2...
@@ -524,7 +529,7 @@ Could not find main page README
 Could not find main page README
 Could not find main page README
 Could not find main page README
-
+```
 En algunos casos puede que dé error, porque falte alguna
   dependencia que haya que instalar desde el sistema operativo; en ese
   caso, es conveniente instalar el paquete correspondiente, en vez de
